@@ -2,6 +2,8 @@ import numpy as np
 from variable import Variable
 
 class Function:
+    def __init__(self, calculation):
+        self.forward = calculation
     '''
     함수를 나타내는 Base 클래스.
     특정 함수를 구현하기 위해선 해당 클래스를 상속받아야 한다.
@@ -12,5 +14,20 @@ class Function:
         output = Variable(y)
         return output
     
+    '''
+    입력값에 대한 함수값을 계산하는 메소드.
+    필수로 구현해야 한다.
+    '''
     def forward(self, x):
         raise NotImplementedError()
+    
+    '''
+    함수의 미분값을 구하는 메소드.
+    중앙차분을 통해 근사한다.
+    '''
+    def diff(self, x, eps=1e-4):
+        x0 = Variable(x.data - eps)
+        x1 = Variable(x.data + eps)
+        y0 = self.__call__(x0)
+        y1 = self.__call__(x1)
+        return (y1.data - y0.data) / (2 * eps)

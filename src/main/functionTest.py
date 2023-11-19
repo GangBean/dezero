@@ -4,12 +4,17 @@ from function import Function
 from variable import Variable
 
 class FunctionTest(unittest.TestCase):
-    def Function_call_은_계산결과를_리턴합니다(self):
-        x = Variable(np.ndarray(10))
-        f = Function
+    def test_forward_해당하는_계산결과를_리턴합니다(self):
+        x = Variable(np.array(10))
+        f = Function(lambda x: x ** 2)
         y = f(x)
-        print(y)
-        self.assertEqual(y, 100)
+        self.assertEqual(y.data, 100)
+    
+    def test_diff_미분결과를_리턴합니다(self):
+        x = Variable(np.array(10))
+        f = Function(lambda x: x ** 2)
+        y = f.diff(x)
+        self.assertAlmostEqual(y, 20)
 
 if __name__ == '__main__':
     unittest.main()
