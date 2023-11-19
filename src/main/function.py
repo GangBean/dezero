@@ -12,6 +12,7 @@ class Function:
         x = input.data
         y = self.forward(x)
         output = Variable(y)
+        self.input = input
         return output
     
     '''
@@ -19,6 +20,12 @@ class Function:
     필수로 구현해야 한다.
     '''
     def forward(self, x):
+        raise NotImplementedError()
+    
+    '''
+    입력된 선행 노드의 grad값에 해당하는 grad를 계산하는 매소드.
+    '''
+    def backward(self, gy):
         raise NotImplementedError()
     
     '''
