@@ -15,6 +15,12 @@ class FunctionTest(unittest.TestCase):
         f = Function(lambda x: x ** 2)
         y = f.diff(x)
         self.assertAlmostEqual(y, 20)
+    
+    def test_forward시_결과변수는_연산함수를_저장합니다(self):
+        x = Variable(np.array(10))
+        f = Function(lambda x: x**2)
+        y = f(x)
+        self.assertEqual(y.grad_fn, f)
 
 if __name__ == '__main__':
     unittest.main()
