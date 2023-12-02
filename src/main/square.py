@@ -9,3 +9,6 @@ class Square(Function):
     
     def backward(self, gy):
         return 2 * self.input.data * gy
+
+def square(x):
+    return Square()(x)

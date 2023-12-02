@@ -7,3 +7,6 @@ class Exp(Function):
     
     def backward(self, gy):
         return np.exp(self.input.data) * gy
+
+def exp(x):
+    return Exp()(x)
