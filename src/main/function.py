@@ -41,3 +41,6 @@ class Function:
         y0 = self.__call__(x0)
         y1 = self.__call__(x1)
         return (y1.data - y0.data) / (2 * eps)
+    
+    def variables(self):
+        return self.input, self.output
