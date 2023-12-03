@@ -11,7 +11,7 @@ class Function:
     def __call__(self, input):
         x = input.data
         y = self.forward(x)
-        output = Variable(y)
+        output = Variable(np.array(y))
         output.set_grad_fn(self)
 
         self.input = input
@@ -36,8 +36,8 @@ class Function:
     중앙차분을 통해 근사한다.
     '''
     def diff(self, x, eps=1e-4):
-        x0 = Variable(x.data - eps)
-        x1 = Variable(x.data + eps)
+        x0 = Variable(np.array(x.data - eps))
+        x1 = Variable(np.array(x.data + eps))
         y0 = self.__call__(x0)
         y1 = self.__call__(x1)
         return (y1.data - y0.data) / (2 * eps)

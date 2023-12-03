@@ -5,6 +5,8 @@ class Variable:
     변수를 나타내는 클래스.
     '''
     def __init__(self, data):
+        if data and not isinstance(data, np.ndarray):
+            raise TypeError(f"Numpy ndarray타입만 사용 가능합니다: {type(data)}")
         self.data = data
         self.grad = None
         self.grad_fn = None
