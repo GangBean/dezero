@@ -4,11 +4,11 @@ class Square(Function):
     def __init__(self):
         pass
 
-    def forward(self, x):
-        return x ** 2
+    def forward(self, *xs):
+        return [x ** 2 for x in xs]
     
     def backward(self, gy):
-        return 2 * self.input.data * gy
+        return 2 * self.inputs[0].data * gy
 
 def square(x):
     return Square()(x)

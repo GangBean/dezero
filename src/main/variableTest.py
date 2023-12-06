@@ -14,7 +14,7 @@ class VariableTest(unittest.TestCase):
 
         with self.assertRaises(TypeError) as context:
             x = Variable(data)
-        self.assertRegexpMatches(str(context.exception), "Numpy ndarray타입만 사용 가능합니다")
+        self.assertRegex(str(context.exception), "Numpy ndarray타입만 사용 가능합니다")
 
 if __name__ == '__main__':
     unittest.main()

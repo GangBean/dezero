@@ -15,14 +15,26 @@ class Variable:
         self.grad_fn = func
 
     def backward(self):
+        self.__init_empty_grad_with_ones()
+        self.__propagate_grads()
+    
+    def __init_empty_grad_with_ones(self):
         if self.grad is None:
             self.grad = np.ones_like(self.data)
-        
+
+    def __propagate_grads(self):
         funcs = [self.grad_fn]
         while funcs:
             f = funcs.pop()
-            x, y = f.variables()
-            x.grad = f.backward(y.grad)
+            gys = f.output_grads()
+            gxs = f.backward(*gys)
+            if not isinstance(gxs, tuple):
+                gxs = (gxs,)
+            
+            for x, gx in zip(f.inputs, gxs):
+                if x.grad is None:
+                    x.grad = 0
+                x.grad = x.grad + gx # np.array 는 += 연산시 inplace 연산이 발생함. 이를 막기 위해 명시적으로 풀어써줌
 
-            if x.grad_fn:
-                funcs.append(x.grad_fn)
+                if x.grad_fn is not None:
+                    funcs.append(x.grad_fn)
