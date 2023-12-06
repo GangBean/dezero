@@ -14,6 +14,8 @@ class Function:
         if not isinstance(ys, tuple):
             ys = (ys,)
         outputs = [Variable(np.array(y)) for y in ys]
+        
+        self.generation = max((x.generation for x in inputs))
         for output in outputs:
             output.set_grad_fn(self)
         self.inputs = inputs
