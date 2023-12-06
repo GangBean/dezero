@@ -13,6 +13,9 @@ class Variable:
 
     def set_grad_fn(self, func):
         self.grad_fn = func
+    
+    def clear_grad(self):
+        self.grad = None
 
     def backward(self):
         self.__init_empty_grad_with_ones()
