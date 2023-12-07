@@ -1,4 +1,6 @@
 import numpy as np
+import weakref
+
 from variable import Variable
 
 class Function:
@@ -19,7 +21,7 @@ class Function:
         for output in outputs:
             output.set_grad_fn(self)
         self.inputs = inputs
-        self.outputs = outputs
+        self.outputs = [weakref.ref(output) for output in outputs]
         return outputs[0] if len(outputs) == 1 else outputs
     
     '''
@@ -60,4 +62,4 @@ class Function:
         return ret[0] if len(ret) == 1 else ret
     
     def output_grads(self):
-        return (output.grad for output in self.outputs)
+        return (output().grad for output in self.outputs)

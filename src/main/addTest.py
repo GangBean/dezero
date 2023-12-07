@@ -13,6 +13,5 @@ class AddTest(unittest.TestCase):
         x.clear_grad()
         self.assertEqual(x.grad, None)
 
-
 if __name__ == '__main__':
     unittest.main()
