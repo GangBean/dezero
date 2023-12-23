@@ -35,6 +35,16 @@ class VariableTest(unittest.TestCase):
 
         self.assertIsNone(y.grad)
         self.assertIsNone(t.grad)
+    
+    def test_retain이_true면_중간미분값이_저장됩니다(self):
+        x0 = Variable(np.array(1.0))
+        x1 = Variable(np.array(1.0))
+        t = add(x0, x1)
+        y = add(x0, t)
+        y.backward(retain_grad=True)
+
+        self.assertIsNotNone(y.grad)
+        self.assertIsNotNone(t.grad)
 
 if __name__ == '__main__':
     unittest.main()
