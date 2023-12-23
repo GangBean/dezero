@@ -25,6 +25,16 @@ class VariableTest(unittest.TestCase):
         y.backward()
 
         self.assertAlmostEqual(x.grad, 64.)
+    
+    def test_retain이_false면_중간미분값이_저장되지않습니다(self):
+        x0 = Variable(np.array(1.0))
+        x1 = Variable(np.array(1.0))
+        t = add(x0, x1)
+        y = add(x0, t)
+        y.backward()
+
+        self.assertIsNone(y.grad)
+        self.assertIsNone(t.grad)
 
 if __name__ == '__main__':
     unittest.main()

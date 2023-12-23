@@ -17,9 +17,9 @@ class Variable:
     def clear_grad(self):
         self.grad = None
 
-    def backward(self):
+    def backward(self, retain_grad = False):
         self.__init_empty_grad_with_ones__()
-        self.__propagate_grads__()
+        self.__propagate_grads__(retain_grad)
     
     def __ndarray_typed__(self, data):
         if data and not isinstance(data, np.ndarray):
@@ -30,7 +30,7 @@ class Variable:
         if self.grad is None:
             self.grad = np.ones_like(self.data)
 
-    def __propagate_grads__(self):
+    def __propagate_grads__(self, retain_grad):
         funcs = []
         calculated_funcs = set()
 
@@ -50,6 +50,10 @@ class Variable:
 
                 if x.grad_fn is not None:
                     self.__add_funcs_and_sort__(x.grad_fn, funcs, calculated_funcs)
+        
+            if not retain_grad:
+                for y in f.outputs:
+                    y().grad = None
     
     def __add_funcs_and_sort__(self, f, funcs, calculated_funcs):
         if f not in calculated_funcs:
