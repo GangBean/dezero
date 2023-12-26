@@ -1,5 +1,6 @@
 import numpy as np
 import weakref
+from config import Config
 
 from variable import Variable
 
@@ -17,11 +18,12 @@ class Function:
             ys = (ys,)
         outputs = [Variable(np.array(y)) for y in ys]
         
-        self.generation = max((x.generation for x in inputs))
-        for output in outputs:
-            output.set_grad_fn(self)
-        self.inputs = inputs
-        self.outputs = [weakref.ref(output) for output in outputs]
+        if Config.enable_backprop:
+            self.generation = max((x.generation for x in inputs))
+            for output in outputs:
+                output.set_grad_fn(self)
+            self.inputs = inputs
+            self.outputs = [weakref.ref(output) for output in outputs]
         return outputs[0] if len(outputs) == 1 else outputs
     
     '''
