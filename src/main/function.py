@@ -14,8 +14,8 @@ class Function:
     특정 함수를 구현하기 위해선 해당 클래스를 상속받아야 한다.
     '''
     def __call__(self, *inputs):
-        outputs = self.__calculated_forward_outputs(inputs)
-        self.__prepare_backpropagation(inputs, outputs)
+        outputs = self.__forward_results(inputs)
+        self.__prepare_back_propagation(inputs, outputs)
 
         return outputs[0] if len(outputs) == 1 else outputs
     
@@ -64,15 +64,21 @@ class Function:
         return (output().grad for output in self.outputs)
     
 
-    def __calculated_forward_outputs(self, inputs):
+    def __forward_results(self, inputs):
         xs = [x.data for x in inputs]
-        ys = self.forward(*xs)
-        if not isinstance(ys, tuple):
-            ys = (ys,)
+        ys = Function.__tupled(self.forward(*xs))
+        
         return [Variable(np.array(y)) for y in ys]
     
 
-    def __prepare_backpropagation(self, inputs, outputs):
+    @staticmethod
+    def __tupled(input):
+        if isinstance(input, tuple):
+            return input
+        return (input,)
+    
+
+    def __prepare_back_propagation(self, inputs, outputs):
         if not Config.enable_backprop:
             return
         
