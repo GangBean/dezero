@@ -83,9 +83,11 @@ class Function:
             return
         
         self.generation = max((x.generation for x in inputs))
+        self.inputs = inputs
+        self.__set_outputs_grad_fn(outputs)
+        self.outputs = [weakref.ref(output) for output in outputs]
+    
+    
+    def __set_outputs_grad_fn(self, outputs):
         for output in outputs:
             output.set_grad_fn(self)
-        self.inputs = inputs
-        self.outputs = [weakref.ref(output) for output in outputs]
-        
-            
