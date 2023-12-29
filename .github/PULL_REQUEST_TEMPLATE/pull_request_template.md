@@ -14,4 +14,4 @@ assignees: ''
 - 
 
 ## Related Issue
-- Closesd:
+- Closed:
