@@ -2,7 +2,7 @@ import numpy as np
 import unittest
 from function import Function
 from variable import Variable
-from config import Config
+from config import Config, no_grad
 from square import square
 
 class FunctionTest(unittest.TestCase):
@@ -28,7 +28,7 @@ class FunctionTest(unittest.TestCase):
         Config.enable_backprop = True
         x = Variable(np.array(10))
         y = square(square(square(x)))
-
+        
         self.assertIsNotNone(y.grad_fn)
     
     def test_enable_backprop이_False일때_grad_fn이_저장되지_않습니다(self):
@@ -37,6 +37,18 @@ class FunctionTest(unittest.TestCase):
         y = square(square(square(x)))
 
         self.assertIsNone(y.grad_fn)
+
+    def test_config_모듈의_no_grad_를사용해_임시적으로_추론모드로_변경가능합니다(self):
+        Config.enable_backprop = True
+        x = Variable(np.array(10))
+        before_y = None
+        with no_grad():
+            before_y = square(square(square(x)))
+
+        after_y = square(square(square(x)))
+
+        self.assertIsNone(before_y.grad_fn)
+        self.assertIsNotNone(after_y.grad_fn)
 
 if __name__ == '__main__':
     unittest.main()
