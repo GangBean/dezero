@@ -1,8 +1,8 @@
 import numpy as np
 import weakref
-from config import Config
+from .config import Config
 
-from variable import Variable
+from .variable import Variable
 
 class Function:
     def __init__(self, calculation):

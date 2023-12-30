@@ -1,8 +1,8 @@
 import unittest
 import numpy as np
-from variable import Variable
-from square import square
-from add import add
+from src.main.variable import Variable
+from src.main.square import square
+from src.main.add import add
 
 class VariableTest(unittest.TestCase):
     def test_변수는_ndarray타입을_사용합니다(self):

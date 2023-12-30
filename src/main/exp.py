@@ -1,4 +1,4 @@
-from function import Function
+from .function import Function
 import numpy as np
 
 class Exp(Function):

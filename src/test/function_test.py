@@ -1,9 +1,9 @@
 import numpy as np
 import unittest
-from function import Function
-from variable import Variable
-from config import Config, no_grad
-from square import square
+from src.main.function import Function
+from src.main.variable import Variable
+from src.main.config import Config, no_grad
+from src.main.square import square
 
 class FunctionTest(unittest.TestCase):
     def test_forward_해당하는_계산결과를_리턴합니다(self):
