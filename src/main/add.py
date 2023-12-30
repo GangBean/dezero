@@ -1,4 +1,4 @@
-from function import Function
+from .function import Function
 
 class Add(Function):
     def __init__(self):

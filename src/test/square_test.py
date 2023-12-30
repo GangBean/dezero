@@ -1,9 +1,9 @@
 import unittest
 import numpy as np
-from variable import Variable
-from config import Config
+from src.main.variable import Variable
+from src.main.config import Config
 
-from square import square
+from src.main.square import square
 
 class SquareTest(unittest.TestCase):
     def test_입력값_제곱_출력(self):
