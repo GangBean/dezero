@@ -53,5 +53,10 @@ class VariableTest(unittest.TestCase):
         self.assertEqual(x.name, 'x')
         self.assertEqual(y.name, 'y')
 
+    def test_변수는_이름을_지정하지않으면_None을_갖습니다(self):
+        x = Variable(np.array(1.0))
+
+        self.assertIsNone(x.name)
+
 if __name__ == '__main__':
     unittest.main()
