@@ -4,11 +4,12 @@ class Variable:
     '''
     변수를 나타내는 클래스.
     '''
-    def __init__(self, data):
+    def __init__(self, data, name:str = None):
         self.data = self.__ndarray_typed__(data)
         self.grad = None
         self.grad_fn = None
         self.generation = 0
+        self.name = name
     
     def set_grad_fn(self, func):
         self.grad_fn = func

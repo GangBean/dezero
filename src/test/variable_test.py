@@ -46,5 +46,12 @@ class VariableTest(unittest.TestCase):
         self.assertIsNotNone(y.grad)
         self.assertIsNotNone(t.grad)
 
+    def test_변수는_이름을_알려줍니다(self):
+        x = Variable(np.array(1.0), 'x')
+        y = Variable(np.array(1.9), 'y')
+
+        self.assertEqual(x.name, 'x')
+        self.assertEqual(y.name, 'y')
+
 if __name__ == '__main__':
     unittest.main()
