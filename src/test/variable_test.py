@@ -68,5 +68,10 @@ class VariableTest(unittest.TestCase):
 
         self.assertEqual(x.ndim, 3)
 
+    def test_변수는_데이터의_size를_알려줍니다(self):
+        x = Variable(np.array([[1,2,3], [4,5,6]]))
+
+        self.assertEqual(x.size, 6)
+
 if __name__ == '__main__':
     unittest.main()
