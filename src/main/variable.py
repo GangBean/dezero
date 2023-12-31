@@ -21,6 +21,10 @@ class Variable:
     def backward(self, retain_grad = False):
         self.__init_empty_grad_with_ones__()
         self.__propagate_grads__(retain_grad)
+
+    @property
+    def shape(self):
+        return self.data.shape
     
     def __ndarray_typed__(self, data):
         if data and not isinstance(data, np.ndarray):

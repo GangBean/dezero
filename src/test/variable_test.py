@@ -58,5 +58,15 @@ class VariableTest(unittest.TestCase):
 
         self.assertIsNone(x.name)
 
+    def test_변수는_데이터의_shape을_알려줍니다(self):
+        x = Variable(np.array([1.0]), 'x')
+
+        self.assertEqual(x.shape, (1,))
+    
+    def test_변수는_데이터의_ndim을_알려줍니다(self):
+        x = Variable(np.array([[1, 2], [3, 4]]))
+
+        self.assertEqual(x.ndim, 2)
+
 if __name__ == '__main__':
     unittest.main()
