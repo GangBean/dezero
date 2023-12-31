@@ -73,5 +73,10 @@ class VariableTest(unittest.TestCase):
 
         self.assertEqual(x.size, 6)
 
+    def test_변수는_데이터의_dtype을_알려줍니다(self):
+        x = Variable(np.array([1, 3, 4]))
+
+        self.assertEqual(x.dtype, np.int32)
+
 if __name__ == '__main__':
     unittest.main()

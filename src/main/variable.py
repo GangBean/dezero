@@ -34,6 +34,10 @@ class Variable:
     def size(self):
         return self.data.size
     
+    @property
+    def dtype(self):
+        return self.data.dtype
+    
     def __ndarray_typed(self, data):
         if self.__is_not_valid_data(data):
             raise TypeError(f"Numpy ndarray타입만 사용 가능합니다: {type(data)}")
