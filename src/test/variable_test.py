@@ -78,5 +78,12 @@ class VariableTest(unittest.TestCase):
 
         self.assertEqual(x.dtype, np.int32)
 
+    def test_변수에_len함수를사용하면_첫번째차원의_원소수를_알려줍니다(self):
+        x = Variable(np.array([1,2,3,4]))
+
+        length = len(x)
+
+        self.assertEqual(length, 4)
+
 if __name__ == '__main__':
     unittest.main()
