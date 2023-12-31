@@ -41,6 +41,12 @@ class Variable:
     def __len__(self):
         return len(self.data)
     
+    def __repr__(self):
+        if self.data is None:
+            return self.name + ': variable(None)'
+        p = str(self.data).replace('\n', '\n' + (' ' * 9))
+        return self.name + ': variable(' + p + ')'
+    
     def __ndarray_typed(self, data):
         if self.__is_not_valid_data(data):
             raise TypeError(f"Numpy ndarray타입만 사용 가능합니다: {type(data)}")

@@ -85,5 +85,10 @@ class VariableTest(unittest.TestCase):
 
         self.assertEqual(length, 4)
 
+    def test_변수를_print하면_보기좋은형태로_출력합니다(self):
+        x = Variable(np.array([[1,2,3,4],[5,6,7,8]]), 'x')
+
+        self.assertRegexpMatches(x.__repr__(), r'x: variable\(\[\[1 2 3 4\]\n\s+ \[5 6 7 8\]\]\)')
+
 if __name__ == '__main__':
     unittest.main()
