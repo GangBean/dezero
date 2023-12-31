@@ -4,11 +4,12 @@ class Variable:
     '''
     변수를 나타내는 클래스.
     '''
-    def __init__(self, data):
-        self.data = self.__ndarray_typed__(data)
+    def __init__(self, data, name:str = None):
+        self.data = self.__ndarray_typed(data)
         self.grad = None
         self.grad_fn = None
         self.generation = 0
+        self.name = name
     
     def set_grad_fn(self, func):
         self.grad_fn = func
@@ -20,11 +21,48 @@ class Variable:
     def backward(self, retain_grad = False):
         self.__init_empty_grad_with_ones__()
         self.__propagate_grads__(retain_grad)
+
+    @property
+    def shape(self):
+        return self.data.shape
     
-    def __ndarray_typed__(self, data):
-        if data and not isinstance(data, np.ndarray):
+    @property
+    def ndim(self):
+        return self.data.ndim
+    
+    @property
+    def size(self):
+        return self.data.size
+    
+    @property
+    def dtype(self):
+        return self.data.dtype
+    
+    def __len__(self):
+        return len(self.data)
+    
+    def __repr__(self):
+        if self.data is None:
+            return self.name + ': variable(None)'
+        p = str(self.data).replace('\n', '\n' + (' ' * 9))
+        return self.name + ': variable(' + p + ')'
+    
+    def __ndarray_typed(self, data):
+        if self.__is_not_valid_data(data):
             raise TypeError(f"Numpy ndarray타입만 사용 가능합니다: {type(data)}")
         return data
+    
+    def __is_numpy_array(self, data):
+        return isinstance(data, np.ndarray)
+    
+    def __is_not_valid_data(self, data):
+        if data is None:
+            return True
+        if self.__is_numpy_array(data):
+            return False
+        if isinstance(data, list):
+            return any(not self.__is_numpy_array(item) for item in data)
+        return True
     
     def __init_empty_grad_with_ones__(self):
         if self.grad is None:
