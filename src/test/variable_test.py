@@ -2,7 +2,6 @@ import unittest
 import numpy as np
 from src.main.variable import Variable
 from src.main.square import square
-from src.main.add import add
 
 class VariableTest(unittest.TestCase):
     def test_변수는_ndarray타입을_사용합니다(self):
@@ -21,7 +20,7 @@ class VariableTest(unittest.TestCase):
     def test_다중계산그래프_역전파도_정상적으로_계산됩니다(self):
         x = Variable(np.array(2.))
         a = square(x)
-        y = add(square(a), square(a))
+        y = square(a) + square(a)
         y.backward()
 
         self.assertAlmostEqual(x.grad, 64.)
@@ -29,8 +28,8 @@ class VariableTest(unittest.TestCase):
     def test_retain이_false면_중간미분값이_저장되지않습니다(self):
         x0 = Variable(np.array(1.0))
         x1 = Variable(np.array(1.0))
-        t = add(x0, x1)
-        y = add(x0, t)
+        t = x0 + x1
+        y = x0 + t
         y.backward()
 
         self.assertIsNone(y.grad)
@@ -39,8 +38,8 @@ class VariableTest(unittest.TestCase):
     def test_retain이_true면_중간미분값이_저장됩니다(self):
         x0 = Variable(np.array(1.0))
         x1 = Variable(np.array(1.0))
-        t = add(x0, x1)
-        y = add(x0, t)
+        t = x0 + x1
+        y = x0 + t
         y.backward(retain_grad=True)
 
         self.assertIsNotNone(y.grad)
@@ -89,6 +88,23 @@ class VariableTest(unittest.TestCase):
         x = Variable(np.array([[1,2,3,4],[5,6,7,8]]), 'x')
 
         self.assertRegexpMatches(x.__repr__(), r'x: variable\(\[\[1 2 3 4\]\n\s+ \[5 6 7 8\]\]\)')
+
+    def test_변수끼리_플러스연산자를사용하면_add결과를_출력합니다(self):
+        a = Variable(np.array(1.0))
+        b = Variable(np.array(2.0))
+
+        y = a + b
+
+        self.assertAlmostEqual(y.data, 3.0)
+
+    def test_변수끼리_곱하기연산자를사용하면_multiply결과를_출력합니다(self):
+        a = Variable(np.array(1.0))
+        b = Variable(np.array(2.0))
+
+        y = a * b
+
+        self.assertAlmostEqual(y.data, 2.0)
+
 
 if __name__ == '__main__':
     unittest.main()
