@@ -47,6 +47,10 @@ class Variable:
         p = str(self.data).replace('\n', '\n' + (' ' * 9))
         return self.name + ': variable(' + p + ')'
     
+    def __add__(self, other):
+        from .add import add
+        return add(self, other)
+    
     def __ndarray_typed(self, data):
         if self.__is_not_valid_data(data):
             raise TypeError(f"Numpy ndarray타입만 사용 가능합니다: {type(data)}")
