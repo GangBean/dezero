@@ -95,7 +95,15 @@ class VariableTest(unittest.TestCase):
 
         y = a + b
 
-        self.assertEqual(y.data, 3.0)
+        self.assertAlmostEqual(y.data, 3.0)
+
+    def test_변수끼리_곱하기연산자를사용하면_multiply결과를_출력합니다(self):
+        a = Variable(np.array(1.0))
+        b = Variable(np.array(2.0))
+
+        y = a * b
+
+        self.assertAlmostEqual(y.data, 2.0)
 
 
 if __name__ == '__main__':
