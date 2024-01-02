@@ -105,6 +105,10 @@ class VariableTest(unittest.TestCase):
 
         self.assertAlmostEqual(y.data, 2.0)
 
+    def test_Variable는_다른숫자형변수를_Variabel로_변환해줍니다(self):
+        a = Variable.as_variable(1)
+
+        self.assertEqual(type(a), Variable)
 
 if __name__ == '__main__':
     unittest.main()
