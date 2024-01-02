@@ -50,5 +50,15 @@ class FunctionTest(unittest.TestCase):
         self.assertIsNone(before_y.grad_fn)
         self.assertIsNotNone(after_y.grad_fn)
 
+    def test_Variable과_다른타입의값과_연산이가능합니다(self):
+        a = Variable(np.array(3.0))
+        b = np.array(2.0)
+        c = 2
+
+        y = a + b * c
+
+        self.assertAlmostEqual(y.data, 7.0)
+    
+
 if __name__ == '__main__':
     unittest.main()

@@ -14,6 +14,8 @@ class Function:
     특정 함수를 구현하기 위해선 해당 클래스를 상속받아야 한다.
     '''
     def __call__(self, *inputs):
+        inputs = [Variable.as_variable(input) for input in inputs]
+        
         outputs = self.__forward_results(inputs)
         self.__prepare_back_propagation(inputs, outputs)
 
