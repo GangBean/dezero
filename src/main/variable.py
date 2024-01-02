@@ -63,7 +63,15 @@ class Variable:
         from .add import add
         return add(self, other)
     
+    def __radd__(self, other):
+        from .add import add
+        return add(self, other)
+    
     def __mul__(self, other):
+        from .multiply import multiply
+        return multiply(self, other)
+    
+    def __rmul__(self, other):
         from .multiply import multiply
         return multiply(self, other)
     

@@ -59,6 +59,12 @@ class FunctionTest(unittest.TestCase):
 
         self.assertAlmostEqual(y.data, 7.0)
     
+    def test_첫번째인수가_Variable이아닐때도_연산이가능합니다(self):
+        x = Variable(np.array(3.0))
+        y = 3 + 2 * x
+
+        self.assertAlmostEqual(y.data, 9.0)
+    
 
 if __name__ == '__main__':
     unittest.main()
