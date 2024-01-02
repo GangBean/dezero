@@ -68,7 +68,7 @@ class Function:
         xs = [x.data for x in inputs]
         ys = Function.__tupled(self.forward(*xs))
         
-        return [Variable(np.array(y)) for y in ys]
+        return [Variable.as_variable(y) for y in ys]
     
 
     @staticmethod

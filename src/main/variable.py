@@ -30,9 +30,9 @@ class Variable:
     
     @staticmethod
     def __as_array(data):
-        if np.isscalar(data):
-            return np.array(data)
-        return data
+        if isinstance(data, np.ndarray):
+            return data
+        return np.array(data)
 
     @property
     def shape(self):
@@ -68,6 +68,7 @@ class Variable:
         return multiply(self, other)
     
     def __ndarray_typed(self, data):
+    
         if self.__is_not_valid_data(data):
             raise TypeError(f"Numpy ndarray타입만 사용 가능합니다: {type(data)}")
         return data
