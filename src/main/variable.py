@@ -10,6 +10,7 @@ class Variable:
         self.grad_fn = None
         self.generation = 0
         self.name = name
+        self.__array_priority__ = 1
     
     def set_grad_fn(self, func):
         self.grad_fn = func
@@ -21,6 +22,18 @@ class Variable:
     def backward(self, retain_grad = False):
         self.__init_empty_grad_with_ones__()
         self.__propagate_grads__(retain_grad)
+    
+    @staticmethod
+    def as_variable(data):
+        if isinstance(data, Variable):
+            return data
+        return Variable(Variable.__as_array(data))
+    
+    @staticmethod
+    def __as_array(data):
+        if isinstance(data, np.ndarray):
+            return data
+        return np.array(data)
 
     @property
     def shape(self):
@@ -42,16 +55,25 @@ class Variable:
         return len(self.data)
     
     def __repr__(self):
+        name = 'None' if self.name is None else self.name
         if self.data is None:
-            return self.name + ': variable(None)'
+            return name + ': variable(None)'
         p = str(self.data).replace('\n', '\n' + (' ' * 9))
-        return self.name + ': variable(' + p + ')'
+        return name + ': variable(' + p + ')'
     
     def __add__(self, other):
         from .add import add
         return add(self, other)
     
+    def __radd__(self, other):
+        from .add import add
+        return add(self, other)
+    
     def __mul__(self, other):
+        from .multiply import multiply
+        return multiply(self, other)
+    
+    def __rmul__(self, other):
         from .multiply import multiply
         return multiply(self, other)
     
