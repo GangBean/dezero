@@ -30,9 +30,9 @@ class Variable:
     
     @staticmethod
     def __as_array(data):
-        if isinstance(data, np.ndarray):
-            return data
-        return np.ndarray(data)
+        if np.isscalar(data):
+            return np.array(data)
+        return data
 
     @property
     def shape(self):
