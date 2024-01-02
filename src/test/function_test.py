@@ -60,14 +60,14 @@ class FunctionTest(unittest.TestCase):
         self.assertAlmostEqual(y.data, 7.0)
     
     def test_첫번째인수가_스칼라일때도_연산이가능합니다(self):
-        x = Variable(np.array(3.0))
+        x = Variable(np.array([3.0]))
         y = 3.0 + 2 * x
 
         self.assertAlmostEqual(y.data, 9.0)
 
     def test_첫번째인수가_ndarray일때도_연산이가능합니다(self):
         x = Variable(np.array(3.0))
-        y = np.array(2.0) * x
+        y = np.array([2.0]) * x
 
         self.assertAlmostEqual(y.data, 6.0)
     
