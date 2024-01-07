@@ -134,6 +134,20 @@ class VariableTest(unittest.TestCase):
         c = 5 - a
 
         self.assertEqual(c.data, np.array(2.0))
+    
+    def test_Variable을_Variable로_나눌수있습니다(self):
+        a = Variable(np.array(3.0))
+        b = Variable(np.array(3.0))
+        c = a / b
+
+        self.assertEqual(c.data, np.array(1.0))
+    
+    def test_상수를_Variable로_나눌수있습니다(self):
+        a = np.array(3.0)
+        b = Variable(np.array(3.0))
+        c = a / b
+
+        self.assertEqual(c.data, np.array(1.0))
 
 if __name__ == '__main__':
     unittest.main()

@@ -89,6 +89,14 @@ class Variable:
         from .substract import subtract
         return subtract(other, self)
     
+    def __truediv__(self, other):
+        from .division import division
+        return division(self, other)
+    
+    def __rtruediv__(self, other):
+        from .division import division
+        return division(other, self)
+    
     def __ndarray_typed(self, data):
         if self.__is_not_valid_data(data):
             raise TypeError(f"Numpy ndarray타입만 사용 가능합니다: {type(data)}")
