@@ -149,5 +149,12 @@ class VariableTest(unittest.TestCase):
 
         self.assertEqual(c.data, np.array(1.0))
 
+    def test_Variable은_상수제곱을_구할수있습니다(self):
+        a = Variable(np.array(3.0))
+        b = 2
+        c = a ** b
+
+        self.assertEqual(c.data, np.array(9.0))
+
 if __name__ == '__main__':
     unittest.main()
