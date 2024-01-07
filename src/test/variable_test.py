@@ -123,5 +123,11 @@ class VariableTest(unittest.TestCase):
 
         self.assertEqual(c.data, np.array(2.0))
 
+    def test_Variable에서_상수를_뺄수있습니다(self):
+        a = Variable(np.array(3.0))
+        c = a - 1
+
+        self.assertEqual(c.data, np.array(2.0))
+
 if __name__ == '__main__':
     unittest.main()
