@@ -77,6 +77,10 @@ class Variable:
         from .multiply import multiply
         return multiply(self, other)
     
+    def __neg__(self):
+        from .negate import negate
+        return negate(self)
+    
     def __ndarray_typed(self, data):
         if self.__is_not_valid_data(data):
             raise TypeError(f"Numpy ndarray타입만 사용 가능합니다: {type(data)}")

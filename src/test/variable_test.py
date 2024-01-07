@@ -110,5 +110,11 @@ class VariableTest(unittest.TestCase):
 
         self.assertEqual(type(a), Variable)
 
+    def test_Variable_은_마이너스부호를_붙이면_데이터의부호가_변합니다(self):
+        a = Variable(np.array(2.0))
+        neg_a = -a
+
+        self.assertEqual(neg_a.data, np.array(-2.0))
+
 if __name__ == '__main__':
     unittest.main()
