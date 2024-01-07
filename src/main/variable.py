@@ -77,6 +77,30 @@ class Variable:
         from .multiply import multiply
         return multiply(self, other)
     
+    def __neg__(self):
+        from .negate import negate
+        return negate(self)
+    
+    def __sub__(self, other):
+        from .substract import subtract
+        return subtract(self, other)
+    
+    def __rsub__(self, other):
+        from .substract import subtract
+        return subtract(other, self)
+    
+    def __truediv__(self, other):
+        from .division import division
+        return division(self, other)
+    
+    def __rtruediv__(self, other):
+        from .division import division
+        return division(other, self)
+    
+    def __pow__(self, other):
+        from .pow import pow
+        return pow(self, other)
+    
     def __ndarray_typed(self, data):
         if self.__is_not_valid_data(data):
             raise TypeError(f"Numpy ndarray타입만 사용 가능합니다: {type(data)}")

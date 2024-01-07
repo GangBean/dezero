@@ -110,5 +110,51 @@ class VariableTest(unittest.TestCase):
 
         self.assertEqual(type(a), Variable)
 
+    def test_Variable_은_마이너스부호를_붙이면_데이터의부호가_변합니다(self):
+        a = Variable(np.array(2.0))
+        neg_a = -a
+
+        self.assertEqual(neg_a.data, np.array(-2.0))
+
+    def test_Variable에서_다른Variable을_뺄수있습니다(self):
+        a = Variable(np.array(3.0))
+        b = Variable(np.array(1.0))
+        c = a - b
+
+        self.assertEqual(c.data, np.array(2.0))
+
+    def test_Variable에서_상수를_뺄수있습니다(self):
+        a = Variable(np.array(3.0))
+        c = a - 1
+
+        self.assertEqual(c.data, np.array(2.0))
+    
+    def test_Variable를_상수에서_뺄수있습니다(self):
+        a = Variable(np.array(3.0))
+        c = 5 - a
+
+        self.assertEqual(c.data, np.array(2.0))
+    
+    def test_Variable을_Variable로_나눌수있습니다(self):
+        a = Variable(np.array(3.0))
+        b = Variable(np.array(3.0))
+        c = a / b
+
+        self.assertEqual(c.data, np.array(1.0))
+    
+    def test_상수를_Variable로_나눌수있습니다(self):
+        a = np.array(3.0)
+        b = Variable(np.array(3.0))
+        c = a / b
+
+        self.assertEqual(c.data, np.array(1.0))
+
+    def test_Variable은_상수제곱을_구할수있습니다(self):
+        a = Variable(np.array(3.0))
+        b = 2
+        c = a ** b
+
+        self.assertEqual(c.data, np.array(9.0))
+
 if __name__ == '__main__':
     unittest.main()
