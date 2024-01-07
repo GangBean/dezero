@@ -81,6 +81,10 @@ class Variable:
         from .negate import negate
         return negate(self)
     
+    def __sub__(self, other):
+        from .substract import subtract
+        return subtract(self, other)
+    
     def __ndarray_typed(self, data):
         if self.__is_not_valid_data(data):
             raise TypeError(f"Numpy ndarray타입만 사용 가능합니다: {type(data)}")
